@@ -17,6 +17,7 @@
     "concurrently": "^3.6.1",
     "express": "^4.16.3",
     "mongoose": "^5.2.6",
+    "npm": "^6.3.0",
     "validator": "^10.4.0"
   }
 }
