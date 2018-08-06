@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
+import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
@@ -19,6 +20,8 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
 
 import { startRemoveRecipe } from './../actions/recipeActions';
 import logo from './../img/salo_samogon.jpg';
@@ -51,6 +54,9 @@ const styles = theme => ({
   },
   avatar: {
     backgroundColor: red[500]
+  },
+  button: {
+    margin: theme.spacing.unit
   }
 });
 
@@ -59,6 +65,13 @@ class Recipe extends React.Component {
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
+  };
+
+  editRecipe = () => {
+    this.props.history.push({
+      pathname: '/edit',
+      state: { recipe: this.props.recipe }
+    });
   };
 
   deleteRecipe = () => {
@@ -97,12 +110,16 @@ class Recipe extends React.Component {
             <Typography component="p">{this.props.recipe.text}</Typography>
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
-            <IconButton aria-label="Add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="Share">
-              <ShareIcon />
-            </IconButton>
+            <Button
+              variant="fab"
+              color="secondary"
+              aria-label="Edit"
+              className={classes.button}
+              onClick={this.editRecipe}
+            >
+              <Icon>edit_icon</Icon>
+            </Button>
+
             <IconButton
               className={classnames(classes.expand, {
                 [classes.expandOpen]: this.state.expanded
@@ -166,4 +183,4 @@ export default compose(
     null,
     { startRemoveRecipe }
   )
-)(Recipe);
+)(withRouter(Recipe));

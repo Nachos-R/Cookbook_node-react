@@ -1,6 +1,12 @@
 import axios from 'axios';
 
-import { ADD_RECIPE, GET_ERRORS, SET_RECIPES, REMOVE_RECIPE } from './types';
+import {
+  ADD_RECIPE,
+  GET_ERRORS,
+  SET_RECIPES,
+  REMOVE_RECIPE,
+  EDIT_RECIPE
+} from './types';
 
 export const startAddRecipe = (data, history) => dispatch => {
   axios
@@ -34,6 +40,22 @@ export const startSetRecipes = () => dispatch => {
 export const setRecipes = recipes => ({
   type: SET_RECIPES,
   payload: recipes
+});
+
+export const startEditRecipe = (id, updates, history) => dispatch => {
+  axios
+    .post(`/api/recipes/${id}`, updates)
+    .then(res => history.push('/'))
+    .then(res => {
+      dispatch(editRecipe(id, updates));
+    })
+    .catch(err => console.log(err));
+};
+
+export const editRecipe = (id, updates) => ({
+  type: EDIT_RECIPE,
+  id,
+  updates
 });
 
 export const startRemoveRecipe = id => dispatch => {
