@@ -86,6 +86,7 @@ class RecipeForm extends Component {
           helperText={errors.name ? errors.name : null}
           fullWidth
           margin="normal"
+          autoFocus
         />
         <TextField
           id="full-width"
