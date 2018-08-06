@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
+import classnames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -69,7 +70,7 @@ class RecipeForm extends Component {
 
     return (
       <form
-        className={`${classes.container} addpage-form`}
+        className={classnames(classes.container, 'addpage-form')}
         noValidate
         autoComplete="off"
         onSubmit={this.onSubmit}
@@ -122,18 +123,22 @@ class RecipeForm extends Component {
           className={classes.button}
           type="submit"
         >
-          Add recipe
+          Save recipe
         </Button>
       </form>
     );
   }
 }
 
+RecipeForm.propTypes = {
+  errors: PropTypes.object.isRequired
+};
+
 const mapStateToProps = state => ({
   errors: state.errors
 });
 
 export default compose(
-  withStyles(styles, { name: RecipeForm }),
+  withStyles(styles),
   connect(mapStateToProps)
 )(RecipeForm);

@@ -18,7 +18,8 @@ router.post('/', (req, res) => {
 
   const newRecipe = new Recipe({
     name: req.body.name,
-    text: req.body.text
+    text: req.body.text,
+    versions: req.body.versions
   });
 
   newRecipe.save().then(recipe => res.json(recipe));
@@ -64,6 +65,7 @@ router.post('/:id', (req, res) => {
 
   if (req.body.name) updateFilds.name = req.body.name;
   if (req.body.text) updateFilds.text = req.body.text;
+  if (req.body.versions) updateFilds.versions = req.body.versions;
 
   Recipe.findOneAndUpdate(
     { _id: req.params.id },

@@ -15,20 +15,19 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
+import Badge from '@material-ui/core/Badge';
 
 import { startRemoveRecipe } from './../actions/recipeActions';
 import logo from './../img/salo_samogon.jpg';
 
 const styles = theme => ({
   card: {
-    maxWidth: '49%',
+    width: '49%',
     display: 'inline-block',
     marginBottom: '20px'
   },
@@ -57,6 +56,9 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit
+  },
+  margin: {
+    margin: theme.spacing.unit * 2
   }
 });
 
@@ -79,12 +81,18 @@ class Recipe extends React.Component {
     this.props.startRemoveRecipe(id);
   };
 
+  toRecipePage = () => {
+    this.props.history.push({
+      pathname: '/versions',
+      state: { recipe: this.props.recipe }
+    });
+  };
+
   render() {
     const { classes } = this.props;
-
     return (
       <React.Fragment>
-        <Card className={`${classes.card} recipe-item`}>
+        <Card className={classnames(classes.card, 'recipe-item')}>
           <CardHeader
             avatar={
               <Avatar aria-label="Recipe" className={classes.avatar}>
@@ -92,11 +100,13 @@ class Recipe extends React.Component {
               </Avatar>
             }
             action={
-              <Tooltip title="Delete">
-                <IconButton aria-label="Delete" onClick={this.deleteRecipe}>
-                  <DeleteIcon />
-                </IconButton>
-              </Tooltip>
+              this.props.recipe.versions && (
+                <Tooltip title="Delete">
+                  <IconButton aria-label="Delete" onClick={this.deleteRecipe}>
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
+              )
             }
             title={this.props.recipe.name}
             subheader={this.props.recipe.date}
@@ -110,16 +120,29 @@ class Recipe extends React.Component {
             <Typography component="p">{this.props.recipe.text}</Typography>
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
-            <Button
-              variant="fab"
-              color="secondary"
-              aria-label="Edit"
-              className={classes.button}
-              onClick={this.editRecipe}
-            >
-              <Icon>edit_icon</Icon>
-            </Button>
-
+            {this.props.recipe.versions && (
+              <React.Fragment>
+                <Button
+                  mini
+                  variant="fab"
+                  color="secondary"
+                  aria-label="Edit"
+                  className={classes.button}
+                  onClick={this.editRecipe}
+                >
+                  <Icon>edit_icon</Icon>
+                </Button>
+                <Badge
+                  color="primary"
+                  badgeContent={this.props.recipe.versions.length}
+                  className={classes.margin}
+                >
+                  <Button variant="contained" onClick={this.toRecipePage}>
+                    See all versions
+                  </Button>
+                </Badge>
+              </React.Fragment>
+            )}
             <IconButton
               className={classnames(classes.expand, {
                 [classes.expandOpen]: this.state.expanded
@@ -178,7 +201,7 @@ Recipe.propTypes = {
 };
 
 export default compose(
-  withStyles(styles, { name: Recipe }),
+  withStyles(styles),
   connect(
     null,
     { startRemoveRecipe }

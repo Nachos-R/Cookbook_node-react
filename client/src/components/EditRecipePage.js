@@ -7,22 +7,33 @@ import RecipeForm from './RecipeForm';
 import { startEditRecipe } from './../actions/recipeActions';
 
 class EditRecipePage extends React.Component {
-  editRecipe = recipe => {
-    const id = this.props.location.state.recipe._id;
-    this.props.startEditRecipe(id, recipe, this.props.history);
+  editRecipe = recipeData => {
+    const { _id, versions } = this.props.location.state.recipe;
+    versions.unshift(recipeData);
+    const recipe = {
+      ...recipeData,
+      versions
+    };
+    this.props.startEditRecipe(_id, recipe, this.props.history);
   };
 
   render() {
     const recipe = this.props.location.state.recipe;
     return (
       <div className="container">
-        <RecipeForm onSubmit={this.editRecipe} recipe={recipe} />
+        <RecipeForm
+          onSubmit={this.editRecipe}
+          recipe={recipe}
+          path={this.props.location.pathname}
+        />
       </div>
     );
   }
 }
 
-EditRecipePage.propTypes = {};
+EditRecipePage.propTypes = {
+  startEditRecipe: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
   errors: state.errors,

@@ -6,7 +6,6 @@ import { startSetRecipes } from './../actions/recipeActions';
 
 class RecipesPage extends Component {
   componentWillMount() {
-    console.log('componentWillMount');
     this.props.startSetRecipes();
   }
   render() {

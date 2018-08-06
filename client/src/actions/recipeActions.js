@@ -45,10 +45,10 @@ export const setRecipes = recipes => ({
 export const startEditRecipe = (id, updates, history) => dispatch => {
   axios
     .post(`/api/recipes/${id}`, updates)
-    .then(res => history.push('/'))
     .then(res => {
       dispatch(editRecipe(id, updates));
     })
+    .then(res => history.push('/'))
     .catch(err => console.log(err));
 };
 

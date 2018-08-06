@@ -7,7 +7,11 @@ import RecipeForm from './RecipeForm';
 import { startAddRecipe } from './../actions/recipeActions';
 
 class AddPage extends React.Component {
-  addRecipe = recipe => {
+  addRecipe = recipeData => {
+    const recipe = {
+      ...recipeData,
+      versions: [recipeData]
+    };
     this.props.startAddRecipe(recipe, this.props.history);
   };
 
@@ -20,7 +24,9 @@ class AddPage extends React.Component {
   }
 }
 
-AddPage.propTypes = {};
+AddPage.propTypes = {
+  startAddRecipe: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
   errors: state.errors,

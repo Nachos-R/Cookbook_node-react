@@ -4,6 +4,7 @@ import RecipesPage from '../components/RecipesPage';
 import Header from '../components/Header';
 import AddRecipePage from '../components/AddRecipePage';
 import EditRecipePage from '../components/EditRecipePage';
+import RecipeVersionsPage from '../components/RecipeVersionsPage';
 
 // don't forget to add /:id
 const AppRouter = () => (
@@ -14,6 +15,7 @@ const AppRouter = () => (
 
       <Route path="/add" component={AddRecipePage} />
       <Route path="/edit" component={EditRecipePage} />
+      <Route path="/versions" component={RecipeVersionsPage} />
     </React.Fragment>
   </Router>
 );

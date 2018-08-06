@@ -28,16 +28,28 @@ class Header extends Component {
       <div className={classes.root}>
         <AppBar position="static" color="default">
           <Toolbar className="header-toolbar">
-            <Typography variant="title" color="inherit" onClick={this.toHome}>
+            {this.props.location.pathname !== '/' && (
+              <div className="backBtn" onClick={this.toHome}>
+                <i className="material-icons">keyboard_arrow_left</i>
+              </div>
+            )}
+            <Typography
+              variant="title"
+              color="inherit"
+              onClick={this.toHome}
+              className="title"
+            >
               CookBook
             </Typography>
-            <Button
-              onClick={this.toAddPage}
-              variant="contained"
-              color="primary"
-            >
-              Add new recipe
-            </Button>
+            {this.props.location.pathname !== '/add' && (
+              <Button
+                onClick={this.toAddPage}
+                variant="contained"
+                color="primary"
+              >
+                Add new recipe
+              </Button>
+            )}
           </Toolbar>
         </AppBar>
       </div>

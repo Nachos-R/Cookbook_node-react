@@ -1,4 +1,8 @@
+* {
+  outline: none !important;
+}
 .container {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -16,9 +20,29 @@
   margin: 0 auto;
 }
 
+.title,
+.editBtn {
+  cursor: pointer;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  cursor: pointer;
+}
+.backBtn i {
+  font-size: 42px;
+  color: #ccc;
+}
+
+.backBtn i:hover {
+  color: #000;
+}
+
 @media (max-width: 600px) {
   .recipe-item {
-    max-width: 400px !important;
+    width: 100% !important;
   }
   .addpage-form {
     width: 100%;
