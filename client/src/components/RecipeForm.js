@@ -134,7 +134,10 @@ class RecipeForm extends Component {
 }
 
 RecipeForm.propTypes = {
-  errors: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  recipe: PropTypes.object
 };
 
 const mapStateToProps = state => ({

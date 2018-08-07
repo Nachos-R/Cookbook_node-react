@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -48,6 +49,12 @@ class AlertDialog extends React.Component {
     );
   }
 }
+
+AlertDialog.propTypes = {
+  closeDialog: PropTypes.func.isRequired,
+  startRemoveRecipe: PropTypes.func.isRequired,
+  dialog: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => ({
   dialog: state.dialog

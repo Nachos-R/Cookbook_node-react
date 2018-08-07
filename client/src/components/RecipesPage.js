@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Recipe from './Recipe';
 import AlertDialog from './AlertDialog';
@@ -23,6 +24,11 @@ class RecipesPage extends Component {
     );
   }
 }
+
+RecipesPage.propTypes = {
+  startSetRecipes: PropTypes.func.isRequired,
+  recipes: PropTypes.array
+};
 
 const mapStateToProps = state => ({
   recipes: state.recipes

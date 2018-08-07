@@ -37,12 +37,7 @@ EditRecipePage.propTypes = {
   startEditRecipe: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  errors: state.errors,
-  recipes: state.recipes
-});
-
 export default connect(
-  mapStateToProps,
+  null,
   { startEditRecipe }
 )(EditRecipePage);

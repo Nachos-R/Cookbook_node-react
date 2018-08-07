@@ -177,17 +177,15 @@ class Recipe extends React.Component {
 
 Recipe.propTypes = {
   classes: PropTypes.object.isRequired,
-  startRemoveRecipe: PropTypes.func.isRequired
+  startRemoveRecipe: PropTypes.func.isRequired,
+  openDialog: PropTypes.func.isRequired,
+  recipe: PropTypes.object.isRequired
 };
-
-const mapStateToProps = state => ({
-  dialog: state.dialog
-});
 
 export default compose(
   withStyles(styles),
   connect(
-    mapStateToProps,
+    null,
     { openDialog, startRemoveRecipe }
   )
 )(withRouter(Recipe));
