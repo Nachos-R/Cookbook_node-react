@@ -24,6 +24,8 @@ import Icon from '@material-ui/core/Icon';
 import Badge from '@material-ui/core/Badge';
 
 import { startRemoveRecipe } from './../actions/recipeActions';
+import { openDialog } from './../actions/dialogActions';
+
 import logo from './../img/salo_samogon.jpg';
 
 const styles = theme => ({
@@ -77,11 +79,6 @@ class Recipe extends React.Component {
     });
   };
 
-  deleteRecipe = () => {
-    const id = this.props.recipe._id;
-    this.props.startRemoveRecipe(id);
-  };
-
   toRecipePage = () => {
     this.props.history.push({
       pathname: '/versions',
@@ -89,9 +86,15 @@ class Recipe extends React.Component {
     });
   };
 
+  openDialog = () => {
+    const id = this.props.recipe._id;
+    this.props.openDialog(id);
+  };
+
   render() {
     const { classes } = this.props;
     const { name, text, date, versions } = this.props.recipe;
+
     return (
       <React.Fragment>
         <Card className={classnames(classes.card, 'recipe-item')}>
@@ -104,7 +107,7 @@ class Recipe extends React.Component {
             action={
               versions && (
                 <Tooltip title="Delete">
-                  <IconButton aria-label="Delete" onClick={this.deleteRecipe}>
+                  <IconButton aria-label="Delete" onClick={this.openDialog}>
                     <DeleteIcon />
                   </IconButton>
                 </Tooltip>
@@ -177,10 +180,14 @@ Recipe.propTypes = {
   startRemoveRecipe: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({
+  dialog: state.dialog
+});
+
 export default compose(
   withStyles(styles),
   connect(
-    null,
-    { startRemoveRecipe }
+    mapStateToProps,
+    { openDialog, startRemoveRecipe }
   )
 )(withRouter(Recipe));

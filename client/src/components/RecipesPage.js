@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Recipe from './Recipe';
+import AlertDialog from './AlertDialog';
 import { startSetRecipes } from './../actions/recipeActions';
 
 class RecipesPage extends Component {
   componentWillMount() {
     this.props.startSetRecipes();
   }
+
   render() {
     return (
       <div className="container">
@@ -16,6 +18,7 @@ class RecipesPage extends Component {
               <Recipe key={index} recipe={recipe} />
             ))
           : false}
+        <AlertDialog />
       </div>
     );
   }
