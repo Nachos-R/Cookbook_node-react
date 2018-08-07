@@ -87,6 +87,7 @@ class RecipeForm extends Component {
           fullWidth
           margin="normal"
           autoFocus
+          error={Boolean(errors.name)}
         />
         <TextField
           id="full-width"
@@ -101,6 +102,7 @@ class RecipeForm extends Component {
           multiline={true}
           rows="10"
           margin="normal"
+          error={Boolean(errors.text)}
         />
         <input
           accept="image/*"

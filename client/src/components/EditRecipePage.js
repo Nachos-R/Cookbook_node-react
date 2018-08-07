@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import RecipeForm from './RecipeForm';
-
+import isEmpty from './../validation/is-empty';
 import { startEditRecipe } from './../actions/recipeActions';
 
 class EditRecipePage extends React.Component {
   editRecipe = recipeData => {
     const { _id, versions } = this.props.location.state.recipe;
-    versions.unshift(recipeData);
+    if (!isEmpty(recipeData.name) && !isEmpty(recipeData.text)) {
+      versions.unshift(recipeData);
+    }
     const recipe = {
       ...recipeData,
       versions

@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 
 const Recipe = require('./../../models/Recipe');
 const validateRecipeInput = require('./../../validation/recipe');
@@ -61,6 +60,12 @@ router.delete('/:id', (req, res) => {
 // @desc    Update recipe
 // @access  Public
 router.post('/:id', (req, res) => {
+  const { errors, isValid } = validateRecipeInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   const updateFilds = {};
 
   if (req.body.name) updateFilds.name = req.body.name;

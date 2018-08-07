@@ -123,7 +123,7 @@ class Recipe extends React.Component {
           />
           <CardContent>
             <Typography component="p">
-              {text.length > 150 ? text.slice(0, 150) : text}
+              {text.length > 150 ? text.slice(0, 150) + '...' : text}
             </Typography>
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
