@@ -1,3 +1,5 @@
-module.exports = {
-  mongoURI: 'mongodb://yura:cookbook42@ds111012.mlab.com:11012/cook_book'
-};
+if (process.env.NODE_ENV === 'production') {
+  module.exports = require('./keys_prod');
+} else {
+  module.exports = require('./keys_dev');
+}
